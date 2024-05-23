@@ -14,22 +14,22 @@ function getCoordinates(cityName) {
 
 //fetch weather data from the API
 function getWeather(lat, lon) {
-    const url = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly&appid=8032a0c325a0d4bbcd92d205aa9b08d4`;
+    const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=8032a0c325a0d4bbcd92d205aa9b08d4`;
     fetch(url)
         .then(response => response.json())
         .then(data => {
             console.log(data);
-            if (data.current === undefined) {
-                console.error('Error: data.current is undefined');
+            if (data.list === undefined || data.list.length === 0) {
+                console.error('Error: data.list is undefined or empty');
                 return;
             }
-            const temperature = data.current.temp;
-            const description = data.current.weather[0].description;
-            const humidity = data.current.humidity;
-            const windSpeed = data.current.wind_speed;
-            const uvIndex = data.current.uvi;
-            const icon = data.current.weather[0].icon;
-            displayWeather(temperature, description, humidity, windSpeed, uvIndex, icon);
+            const currentForecast = data.list[0]; // to get the furst item in the list
+            const temperature = currentForecast.main.temp;
+            const description = currentForecast.weather[0].description;
+            const humidity = currentForecast.main.humidity;
+            const windSpeed = currentForecast.wind_speed;
+            const icon = currentForecast.weather[0].icon;
+            displayWeather(temperature, description, humidity, windSpeed, icon);
         })
         .catch(error => console.error('Error:', error));
 }
