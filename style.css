@@ -1,15 +1,14 @@
 body {
-    background-color: #f0f0f0;
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-template-rows: auto 1fr;
+    grid-template-areas: 
+        "header header"
+        "search weather";
 }
 
 header {
-    background-color: #333;
-    color: #fff;
-    padding: 10px 0;
-    text-align: center;
+   grid-area: header;
 }
 
 section {
@@ -17,45 +16,72 @@ section {
     padding: 20px;
     background-color: #fff;
     border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 #search-form {
     display: flex;
     justify-content: center;
+    margin-bottom: 20px;
 }
 
 #search-form input[type="text"] {
     flex: 1;
     margin-right: 10px;
-    padding: 5px;
+    padding: 10px;
     border-radius: 5px;
     border: 1px solid #ccc;
+    font-size: 1em;
 }
 
 #search-form button {
-    padding: 5px 10px;
+    padding: 10px 20px;
     border-radius: 5px;
-    border: 1px solid #ccc;
+    border: none;
     background-color: #333;
     color: #fff;
+    font-size: 1em;
     cursor: pointer;
 }
 
-#search-form button:hover {
-    background-color: #444;
+#searchHistory button {
+    display: block;
+    margin: 10px 0;
+    padding: 10px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: left;
+    width: 100%;
+    cursor: pointer;
 }
 
-#search-form button:active {
-    background-color: #555;
+#searchHistory button:hover {
+    background-color: #e0e0e0;
 }
 
-@media (max-width: 600px) {
-    #search-form {
-        flex-direction: column;
-    }
+#search-section {
+    grid-area: search;
+    margin-right: 20px;
+}
 
-    #search-form input[type="text"] {
-        margin-right: 0;
-        margin-bottom: 10px;
-    }
+#weather-section {
+    grid-area: weather;
+}
+
+#search-form, #searchHistory {
+    margin-bottom: 20px;
+}
+
+#forecast-current, #forecast-day-0, #forecast-day-1, #forecast-day-2, #forecast-day-3, #forecast-day-4 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#forecast-current .date, #forecast-day-0 .date, #forecast-day-1 .date, #forecast-day-2 .date, #forecast-day-3 .date, #forecast-day-4 .date {
+    font-size: 1.2em;
+    font-weight: bold;
 }
